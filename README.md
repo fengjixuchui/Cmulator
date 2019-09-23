@@ -1,7 +1,10 @@
 # Cmulator - Scriptable x86 RE Sandbox Emulator (v0.2 Beta)
 
+
+[![Join the chat at https://gitter.im/x86_emulator/community](https://badges.gitter.im/x86_emulator/cmulator.svg)](https://gitter.im/x86_emulator/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 <h3> <b>Call for LOGO</b> , if you good at design give it a try and Create Logo for Cmulator <br>
-your name will apper in <b>Acknowledgements</b>
+your name will appear in <b>Acknowledgements</b>
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
@@ -35,9 +38,27 @@ Based on Unicorn & Capstone Engine & javascript .
 * Trace all Executed API ( good for Obfuscated PE).
 * Displays HexDump with Strings based on referenced memory locations.
 * Patching the Memory.
-* Custome API hooks using Javascript (scripting).
+* Custom API hooks using Javascript (scripting).
 * Handle SEH (still need more work).
 * [+] Hook Address.
+* [+] Apiset map resolver
+
+<br>
+<hr>
+
+
+## [+] Changelog
+
+-	v0.2 beta
+	-	[+] Add Hook Address
+	-	[+] Implementing Api schema forworder
+	-	[+] Change disassembler from **Capstone** to **Zydis** Engine
+	-	[√] improvements for SEH handling 
+	-	[√] improvements with JS to API handle
+	-	[√] Improve API detection by address or name or ordinal
+
+-	v0.1 beta
+	-	Init version
 
 <br>
 <hr>
@@ -497,8 +518,9 @@ And Try it Your Self , find it at "samples/obfuscated/obfuscated.exe" 😉
 <br>
 
 ## WIP BY Priority :
-* Memory Manager - Next Update
-* Checking for Bug & fixing them 👌🏻
+*	Memory Manager - Next version
+*	Checking for Bug & fixing them 👌🏻
+*	**Api schema forwarder still need more improvements and testing**
 
 <hr>
 
@@ -506,6 +528,7 @@ And Try it Your Self , find it at "samples/obfuscated/obfuscated.exe" 😉
 - [x] PC (RIP - EIP) Hook.
 - [x] improving exception handling.
 - [x] Native Plugins & API Hook Libs.
+- [x] Api schema forwarder.
 - [ ] Add Memory Manager.
 - [ ] **Sysenter** / **Syscall** Global Hook in JS.
 - [ ] Control TEB/PEB in JS.
@@ -519,7 +542,7 @@ And Try it Your Self , find it at "samples/obfuscated/obfuscated.exe" 😉
 ## Requirements
 * Freepascal >= v3
 * Unicorn Engine 
-* Capstone Engine
+* Zydis Engine
 
 <hr>
 
@@ -567,12 +590,14 @@ set the dll folders to where you stored your windows dlls and JS Main File .
 {
   "system": {
     "win32": "../win_dlls/x32_win7",
-    "win64": "../win_dlls/x64_win7"
+    "win64": "../win_dlls/x64_win7",
+    "Apiset": "../Apiset.json"
   },
   "JS": {
   	"main": "../API.JS"
   }
 }
+
 ```
 
 ## Run
@@ -602,7 +627,7 @@ this work inspired by :
 Used OpenSource Projects :
 - [Besen Engine](https://github.com/bero1985/besen)
 - [Unicorn Engine](https://github.com/unicorn-engine/unicorn)
-- [Capstone Engine](https://github.com/aquynh/capstone)
+- [Zydis Engine](https://github.com/zyantific/zydis)
 - [PE Parser](https://github.com/oranke/pe-image-for-Lazarus) 
 - [Pse PE Parse](https://github.com/stievie/pesp) 
 - [generics collections](https://github.com/maciej-izak/generics.collections)

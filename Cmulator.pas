@@ -35,12 +35,12 @@ var
   major, minor : Cardinal;
 begin
   major := 0; minor := 0;
-  Writeln (#10'Cmulator Malware Analyzer - By Coldzer0',#10);
-  Writeln (      'Compiled on      : ',{$I %DATE%}, ' - ' ,{$I %TIME%});
-  Writeln (      'Target CPU       : i386 & x86_x64');
+  Writeln(#10'Cmulator Malware Analyzer - By Coldzer0',#10);
+  Writeln(      'Compiled on      : ',{$I %DATE%}, ' - ' ,{$I %TIME%});
+  Writeln(      'Target CPU       : i386 & x86_x64');
   uc_version(major, minor);
   Writeln(format('Unicorn Engine   : v%d.%d ',[major,minor]));
-  Writeln('Cmulator         : v0.1'#10);
+  Writeln('Cmulator         : ',CM_VERSION,#10);
 end;
 
 procedure Help();
@@ -73,16 +73,26 @@ var
   JSON : ISuperObject;
   data : string;
 begin
-  conf := TStringList.Create;
+
   if FileExists('./config.json') then
   begin
+    conf := TStringList.Create;
     conf.LoadFromFile('./config.json');
     data := conf.Text;
+    conf.free;
+
     JSON := SO(UnicodeString(data));
 
     win32 := JSON.S['system.win32'];
     win64 := JSON.S['system.win64'];
     JSAPI := JSON.S['JS.main'];
+    ApiSetSchemaPath := JSON.S['system.Apiset'];
+
+    if not FileExists(ApiSetSchemaPath) then
+    begin
+      Writeln('ApiSetSchema JSON file not found - Check the config file !');
+      halt;
+    end;
 
     if not FileExists(JSAPI) then
     begin
@@ -211,6 +221,5 @@ begin
   Emulator.Start;
 
   Writeln(#10#10);
-  Writeln('Press Enter to Close ¯\_(ツ)_/¯');
-  //ReadLn;
+  Writeln('I just finished ¯\_(ツ)_/¯');
 end.
